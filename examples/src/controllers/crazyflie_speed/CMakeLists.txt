@@ -1,0 +1,6 @@
+add_library(crazyflie_speed MODULE crazyflie_speed.h crazyflie_speed.cpp)
+target_link_libraries(crazyflie_speed
+  argos3core_simulator
+  argos3plugin_simulator_crazyflie
+  argos3plugin_simulator_genericrobot)
+

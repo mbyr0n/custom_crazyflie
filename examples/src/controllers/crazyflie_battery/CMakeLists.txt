@@ -1,0 +1,6 @@
+add_library(crazyflie_battery MODULE crazyflie_battery.h crazyflie_battery.cpp)
+target_link_libraries(crazyflie_battery
+  argos3core_simulator
+  argos3plugin_simulator_crazyflie
+  argos3plugin_simulator_genericrobot)
+

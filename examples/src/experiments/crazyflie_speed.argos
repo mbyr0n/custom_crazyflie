@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<argos-configuration>
+   <framework>
+      <system threads="0" />
+      <experiment length="23" ticks_per_second="10" random_seed="419" />
+   </framework>
+
+   <physics_engines>
+      <pointmass3d id="pm3d" iterations="10" />
+   </physics_engines>
+
+   <media />
+
+   <controllers>
+      <crazyflie_speed_controller id="c1" library="build/lib/controllers/crazyflie_speed/libcrazyflie_speed.so">
+         <actuators>
+            <quadrotor_speed implementation="default" />
+         </actuators>
+         <sensors>
+            <positioning implementation="default" />
+         </sensors>
+         <params />
+      </crazyflie_speed_controller>
+   </controllers>
+
+   <arena size="5,5,2" center="0,0,1.0">
+        <crazyflie id="1">
+            <body position="0.0,0.0,1.00" orientation="0,0,0" />
+            <controller config="c1" />
+        </crazyflie>
+   </arena>
+
+   <visualization><qt-opengl><camera><placements>
+      <placement index="0" position="-0.0229079,-9.72558,8.29434" look_at="-0.0252359,-8.93918,7.67663" up="-0.00182889,0.61777,0.786357" lens_focal_length="65" />
+    </placements></camera></qt-opengl></visualization>
+
+</argos-configuration>

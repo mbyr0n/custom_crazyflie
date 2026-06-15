@@ -1,0 +1,57 @@
+<?xml version="1.0" ?>
+<argos-configuration>
+   <framework>
+      <system threads="0" />
+      <experiment length="30" ticks_per_second="10" random_seed="419" />
+   </framework>
+
+   <physics_engines>
+      <pointmass3d id="pm3d" iterations="10" />
+   </physics_engines>
+
+   <media>
+      <led id="leds" />
+   </media>
+
+   <controllers>
+      <crazyflie_camera_controller id="c1" library="build/lib/controllers/crazyflie_camera/libcrazyflie_camera.so">
+         <actuators>
+            <quadrotor_speed implementation="default" />
+            <leds implementation="default" medium="leds" />
+         </actuators>
+         <sensors>
+            <positioning implementation="default" />
+            <crazyflie_colored_blob_perspective_camera implementation="default" medium="leds" show_rays="true" />
+         </sensors>
+         <params />
+      </crazyflie_camera_controller>
+   </controllers>
+
+   <arena size="3,2,2" center="0,0,1">
+      <light id="light1"
+         position="-0.8,-0.8,0.6"
+         orientation="0,0,0"
+         color="green"
+         intensity="1.0"
+         medium="leds"/>
+      <light id="light2"
+         position="0.0,-0.8,0.8"
+         orientation="0,0,0"
+         color="yellow"
+         intensity="1.0"
+         medium="leds"/>
+      <crazyflie id="1">
+         <body position="-1.0,0.0,0.40" orientation="0,0,0" />
+         <controller config="c1" />
+      </crazyflie>
+      <crazyflie id="2">
+         <body position="1.0,0.0,0.60" orientation="180,0,0" />
+         <controller config="c1" />
+      </crazyflie>
+   </arena>
+
+   <visualization><qt-opengl><camera><placements>
+      <placement index="0" position="-0.0378147,6.45329,2.16188" look_at="-0.0313314,5.47091,1.97508" up="0.00123281,-0.1868,0.982397" lens_focal_length="65" />
+   </placements></camera></qt-opengl></visualization>
+
+</argos-configuration>

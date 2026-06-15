@@ -1,0 +1,6 @@
+add_library(crazyflie_camera MODULE crazyflie_camera.h crazyflie_camera.cpp)
+target_link_libraries(crazyflie_camera
+  argos3core_simulator
+  argos3plugin_simulator_crazyflie
+  argos3plugin_simulator_genericrobot)
+

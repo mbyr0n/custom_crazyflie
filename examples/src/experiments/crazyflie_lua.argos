@@ -1,0 +1,57 @@
+<?xml version="1.0" ?>
+<argos-configuration>
+   <framework>
+      <system threads="0" />
+      <experiment length="50" ticks_per_second="10" random_seed="419" />
+   </framework>
+
+   <physics_engines>
+      <pointmass3d id="pm3d" iterations="10" />
+   </physics_engines>
+
+   <media>
+      <led id="leds" />
+   </media>
+
+   <controllers>
+      <lua_controller id="c1">
+         <actuators>
+            <quadrotor_speed implementation="default" />
+            <!-- <quadrotor_position implementation="default" /> -->
+            <leds implementation="default" medium="leds" />
+         </actuators>
+         <sensors>
+            <positioning implementation="default" />
+            <crazyflie_battery implementation="default" />
+            <crazyflie_colored_blob_perspective_camera implementation="default" medium="leds" show_rays="true" />
+         </sensors>
+         <params script="./src/controllers/crazyflie_lua/crazyflie_lua.lua"/>
+      </lua_controller>
+   </controllers>
+
+   <arena size="5,5,3" center="0,0,1.5">
+      <light id="light1"
+         position="1.0,1.0,2.3"
+         orientation="0,0,0"
+         color="yellow"
+         intensity="1.0"
+         medium="leds"/>
+      <light id="light2"
+         position="1.0,1.2,2.4"
+         orientation="0,0,0"
+         color="green"
+         intensity="1.0"
+         medium="leds"/>
+      <crazyflie id="1">
+         <body position="0.0,0.0,1.00" orientation="0,0,0" />
+         <controller config="c1" />
+         <crazyflie_battery start_charge="1.0" />
+      </crazyflie>
+   </arena>
+
+   <visualization><qt-opengl><camera><placements>
+      <placement index="0" position="0.35282,0.000402509,1.03174" look_at="-0.632924,0.00982648,0.863752" up="-0.16798,0.00160593,0.985789" lens_focal_length="65" />
+      <placement index="1" position="-0.0530269,-11.3314,6.61502" look_at="-0.0450153,-10.4293,6.18364" up="0.00383091,0.431371,0.902166" lens_focal_length="65" />
+    </placements></camera></qt-opengl></visualization>
+
+</argos-configuration>

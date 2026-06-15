@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<argos-configuration>
+   <framework>
+      <system threads="0" />
+      <experiment length="10" ticks_per_second="10" random_seed="419" />
+   </framework>
+
+   <physics_engines>
+      <pointmass3d id="pm3d" iterations="10" />
+   </physics_engines>
+
+   <media>
+      <led id="leds" />
+   </media>
+
+   <controllers>
+      <crazyflie_led_controller id="c1" library="build/lib/controllers/crazyflie_led/libcrazyflie_led.so">
+         <actuators>
+            <leds implementation="default" medium="leds" />
+         </actuators>
+         <sensors />
+         <params />
+      </crazyflie_led_controller>
+   </controllers>
+
+   <arena size="3,3,3" center="0,0,1.5">
+        <crazyflie id="1">
+            <body position="0.0,0.0,0.50" orientation="0,0,0" />
+            <controller config="c1" />
+        </crazyflie>
+   </arena>
+
+   <visualization><qt-opengl><camera><placements>
+      <placement index="0" position="0.429255,-0.000328225,0.583184" look_at="-0.556489,0.00909575,0.415196" up="-0.16798,0.00160593,0.985789" lens_focal_length="65" />
+   </placements></camera></qt-opengl></visualization>
+
+</argos-configuration>

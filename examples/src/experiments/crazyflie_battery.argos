@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<argos-configuration>
+   <framework>
+      <system threads="0" />
+      <experiment length="0" ticks_per_second="10" random_seed="419" />
+   </framework>
+
+   <physics_engines>
+      <pointmass3d id="pm3d" iterations="10" />
+   </physics_engines>
+
+   <media />
+
+   <controllers>
+      <crazyflie_battery_controller id="c1" library="build/lib/controllers/crazyflie_battery/libcrazyflie_battery.so">
+         <actuators />
+         <sensors>
+            <crazyflie_battery implementation="default" />
+         </sensors>
+         <params />
+      </crazyflie_battery_controller>
+   </controllers>
+
+   <arena size="3,3,3" center="0,0,1.5">
+        <crazyflie id="1">
+            <body position="0.0,0.0,0.50" orientation="0,0,0" />
+            <controller config="c1" />
+            <crazyflie_battery start_charge="1.0" />
+        </crazyflie>
+   </arena>
+
+   <visualization><qt-opengl><camera><placements>
+      <placement index="0" position="0.564905,0.00304168,0.992324" look_at="-0.191036,0.00304168,0.337684" up="-0.65464,0,0.75594" lens_focal_length="65" />
+   </placements></camera></qt-opengl></visualization>
+
+</argos-configuration>

@@ -1,0 +1,44 @@
+<?xml version="1.0" ?>
+<argos-configuration>
+   <framework>
+      <system threads="0" />
+      <experiment length="30" ticks_per_second="10" random_seed="419" />
+   </framework>
+
+   <physics_engines>
+      <pointmass3d id="pm3d" iterations="10" />
+   </physics_engines>
+
+   <media />
+
+   <controllers>
+      <lua_controller id="c1">
+         <actuators>
+            <quadrotor_speed implementation="default" />
+         </actuators>
+         <sensors>
+            <positioning implementation="default" />
+            <crazyflie_battery implementation="default" />
+            <crazyflie_apriltag implementation="default" range="3.0" fov="110" show_rays="true" show_fov="true" />
+         </sensors>
+         <params script="./src/controllers/crazyflie_apriltag/crazyflie_apriltag.lua" />
+      </lua_controller>
+   </controllers>
+
+   <arena size="5,5,3" center="0,0,1.5">
+      <ground_apriltag id="tag0" marker_id="0" position="0.0,0.0,0.0" />
+      <ground_apriltag id="tag1" marker_id="1" position="1.0,0.5,0.0" />
+      <ground_apriltag id="tag2" marker_id="2" position="-1.0,0.5,0.0" />
+
+      <crazyflie id="1">
+         <body position="0.0,0.0,1.0" orientation="0,0,0" />
+         <controller config="c1" />
+         <crazyflie_battery start_charge="1.0" />
+      </crazyflie>
+   </arena>
+
+   <visualization><qt-opengl><camera><placements>
+      <placement index="0" position="0.0,-5.5,3.0" look_at="0.0,0.0,0.6" up="0.0,0.4,0.9" lens_focal_length="65" />
+   </placements></camera></qt-opengl></visualization>
+
+</argos-configuration>

@@ -1,0 +1,5 @@
+build/
+doc/
+docs/
+.worktrees/
+graphify-out/
