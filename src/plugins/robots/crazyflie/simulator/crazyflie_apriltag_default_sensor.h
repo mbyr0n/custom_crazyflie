@@ -9,6 +9,9 @@ namespace argos {
    class CCrazyflieAprilTagDefaultSensor;
    class CEmbodiedEntity;
    class CControllableEntity;
+   class CTagEntity;
+   class CGroundAprilTagEntity;
+   template<typename ENTITY> class CPositionalIndex;
 }
 
 #include <argos3/core/simulator/sensor.h>
@@ -36,12 +39,19 @@ namespace argos {
 
       void AddFOVRays(const CVector3& c_camera_position,
                       const CQuaternion& c_body_orientation);
+      void ProcessTag(CTagEntity& c_tag,
+                      const CVector3& c_camera_position,
+                      const CQuaternion& c_inv_body_orientation);
+      void ProcessGroundTag(CGroundAprilTagEntity& c_tag,
+                            const CVector3& c_camera_position,
+                            const CQuaternion& c_inv_body_orientation);
       Real NormalizeAngle(Real f_angle) const;
 
    private:
 
       CEmbodiedEntity* m_pcEmbodiedEntity;
       CControllableEntity* m_pcControllableEntity;
+      CPositionalIndex<CTagEntity>* m_pcTagIndex;
       Real m_fRange;
       CRadians m_cHalfFOV;
       CVector3 m_cCameraOffset;

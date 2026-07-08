@@ -3,3 +3,5 @@ doc/
 docs/
 .worktrees/
 graphify-out/
+examples/CMakeFiles/
+tests/
