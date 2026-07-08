@@ -197,7 +197,7 @@ namespace argos {
          cTagDirection.Rotate(c_tag.GetOrientation());
          Real fCosObservable = cTagDirection.DotProduct(cTagToCamera) /
                         (cTagDirection.Length() * cTagToCamera.Length());
-         fCosAngle = Max(-1.0, Min(1.0, fCosObservable));
+         fCosObservable = Max(-1.0, Min(1.0, fCosObservable));
          if(ACos(fCosObservable) > c_tag.GetObservableAngle()) {
             return;
          }
