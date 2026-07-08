@@ -186,16 +186,19 @@ namespace argos {
       if(cRelativeBody.GetZ() >= 0.0f) {
          return;
       }
-      if(ACos(-cRelativeBody.GetZ() / fDistance) > m_cHalfFOV) {
+      Real fCosAngle = -cRelativeBody.GetZ() / fDistance;
+      fCosAngle = Max(-1.0, Min(1.0, fCosAngle));
+      if(ACos(fCosAngle) > m_cHalfFOV) {
          return;
       }
       if(c_tag.GetObservableAngle() < CRadians::PI) {
          CVector3 cTagToCamera(c_camera_position - c_tag.GetPosition());
          CVector3 cTagDirection(CVector3::Z);
          cTagDirection.Rotate(c_tag.GetOrientation());
-         if(ACos(cTagDirection.DotProduct(cTagToCamera) /
-                 (cTagDirection.Length() * cTagToCamera.Length())) >
-            c_tag.GetObservableAngle()) {
+         Real fCosObservable = cTagDirection.DotProduct(cTagToCamera) /
+                        (cTagDirection.Length() * cTagToCamera.Length());
+         fCosAngle = Max(-1.0, Min(1.0, fCosObservable));
+         if(ACos(fCosObservable) > c_tag.GetObservableAngle()) {
             return;
          }
       }
@@ -212,20 +215,24 @@ namespace argos {
          }
       }
 
-      UInt32 unId = 0;
-      try {
-         std::string strId(c_tag.GetPayload());
-         std::string::iterator itRemove =
-            std::remove_if(strId.begin(),
+      std::string strId(c_tag.GetPayload());
+      strId.erase(std::remove_if(strId.begin(),
                            strId.end(),
                            [](unsigned char ch) {
                               return std::isdigit(ch) == 0;
-                           });
-         strId.erase(itRemove, strId.end());
-         unId = std::stoul(strId);
+                           }),
+                strId.end());
+      if(strId.empty()) {
+         return;
       }
-      catch(const std::logic_error&) {}
-
+      UInt32 unId;
+      try {
+         unId = static_cast<UInt32>(std::stoul(strId));
+      }
+      catch(const std::exception&) {
+         return;
+      }
+                
       CRadians cRelativeYaw, cTmp1, cTmp2;
       CQuaternion cRelativeOrientation = c_inv_body_orientation * c_tag.GetOrientation();
       cRelativeOrientation.ToEulerAngles(cRelativeYaw, cTmp1, cTmp2);
@@ -264,7 +271,10 @@ namespace argos {
       if(cRelativeBody.GetZ() >= 0.0f) {
          return;
       }
-      if(ACos(-cRelativeBody.GetZ() / fDistance) > m_cHalfFOV) {
+      
+      Real fCosAngle = -cRelativeBody.GetZ() / fDistance;
+      fCosAngle = Max(-1.0, Min(1.0, fCosAngle));
+      if(ACos(fCosAngle) > m_cHalfFOV) {
          return;
       }
 
